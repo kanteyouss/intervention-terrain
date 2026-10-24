@@ -9,7 +9,10 @@ import lombok.*;
  */
 
 @Entity
-@Table(name = "intervention_creneau")
+@Table(name = "intervention_creneau", indexes = {
+    @Index(name = "idx_ic_intervention", columnList = "intervention_id"),
+    @Index(name = "idx_ic_creneau", columnList = "creneau_id")
+})
 @Getter
 @Setter
 @Builder

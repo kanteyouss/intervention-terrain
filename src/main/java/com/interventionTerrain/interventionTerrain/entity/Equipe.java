@@ -6,7 +6,9 @@ import lombok.*;
  * Represente l'equipe dans laquelle les technicen appartiennent
  */
 @Entity
-@Table(name = "equipe")
+@Table(name = "equipe", indexes = {
+    @Index(name = "idx_equipe_agence", columnList = "agence_id")
+})
 @Getter
 @Setter
 @Builder

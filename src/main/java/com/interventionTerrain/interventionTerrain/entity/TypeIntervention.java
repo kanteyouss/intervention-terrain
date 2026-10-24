@@ -5,7 +5,9 @@ import lombok.*;
  * Représente le type d'intervention que nous pouvons effectuer sur le terrain.
  */
 @Entity
-@Table(name = "types_intervention")
+@Table(name = "types_intervention", indexes = {
+    @Index(name = "idx_types_intervention_nom", columnList = "nom")
+})
 @Getter
 @Setter
 @Builder

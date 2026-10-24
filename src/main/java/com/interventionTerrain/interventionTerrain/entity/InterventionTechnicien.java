@@ -7,7 +7,10 @@ import lombok.*;
  * Représente la table associative entre technicien et intervention.
  */
 @Entity
-@Table(name = "intervention_technicien")
+@Table(name = "intervention_technicien", indexes = {
+    @Index(name = "idx_it_intervention", columnList = "intervention_id"),
+    @Index(name = "idx_it_technicien", columnList = "technicien_id")
+})
 @Getter
 @Setter
 @Builder

@@ -8,7 +8,10 @@ import java.time.LocalDate;
  * Represente la table associative entre les techniciens et leurs competences, avec les dates d'obtention et d'expiration de chaque competence.
  */
 @Entity
-@Table(name = "technicien_competence")
+@Table(name = "technicien_competence", indexes = {
+    @Index(name = "idx_tec_technicien", columnList = "technicien_id"),
+    @Index(name = "idx_tec_competence", columnList = "competence_id")
+})
 @Getter
 @Setter
 @Builder

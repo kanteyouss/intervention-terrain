@@ -5,7 +5,11 @@ import lombok.*;
  * Represente la competence que peut avoir un  technicien
  */
 @Entity
-@Table(name = "competence")
+@Table(name = "competence", uniqueConstraints = {
+    @UniqueConstraint(name = "uk_competence_nom", columnNames = "nom")
+}, indexes = {
+    @Index(name = "idx_competence_nom", columnList = "nom")
+})
 @Getter
 @Setter
 @Builder

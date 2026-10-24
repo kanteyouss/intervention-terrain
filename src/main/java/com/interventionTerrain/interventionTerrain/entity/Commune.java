@@ -6,7 +6,9 @@ import lombok.*;
  * Represente la commune
  */
 @Entity
-@Table(name = "commune")
+@Table(name = "commune", indexes = {
+    @Index(name = "idx_commune_departement", columnList = "departement_id")
+})
 @Getter
 @Setter
 @Builder

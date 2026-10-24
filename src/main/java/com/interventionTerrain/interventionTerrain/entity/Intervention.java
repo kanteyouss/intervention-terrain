@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
  * Represente les interventions
  */
 @Entity
-@Table(name = "intervention")
+@Table(name = "intervention", indexes = {
+    @Index(name = "idx_intervention_client", columnList = "client_id"),
+    @Index(name = "idx_intervention_type", columnList = "type_intervention_id"),
+    @Index(name = "idx_intervention_statut", columnList = "statut")
+})
 @Getter
 @Setter
 @Builder

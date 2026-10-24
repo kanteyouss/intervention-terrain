@@ -6,7 +6,13 @@ import lombok.*;
  * Représente le techncien qui est affecté à une équipe et qui peut intervenir sur des interventions
  */
 @Entity
-@Table(name = "technicien")
+@Table(name = "technicien", uniqueConstraints = {
+    @UniqueConstraint(name = "uk_technicien_matricule", columnNames = "matricule")
+}, indexes = {
+    @Index(name = "idx_technicien_equipe", columnList = "equipe_id"),
+    @Index(name = "idx_technicien_nom_prenom", columnList = "nom, prenom"),
+    @Index(name = "idx_technicien_matricule", columnList = "matricule")
+})
 @Getter
 @Setter
 @Builder

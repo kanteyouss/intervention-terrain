@@ -6,7 +6,12 @@ import lombok.*;
  * Represente agence auquelle appartient un agent. Une agence est localisée dans une commune.
  */
 @Entity
-@Table(name = "agence")
+@Table(name = "agence", uniqueConstraints = {
+    @UniqueConstraint(name = "uk_agence_nom", columnNames = "nom")
+}, indexes = {
+    @Index(name = "idx_agence_commune", columnList = "commune_id"),
+    @Index(name = "idx_agence_nom", columnList = "nom")
+})
 @Getter
 @Setter
 @Builder
