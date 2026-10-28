@@ -1,8 +1,11 @@
 package com.interventionTerrain.interventionTerrain.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.time.LocalDate;
 
 /**
  * Requête de création ou de modification d'une compétence.
@@ -24,4 +27,8 @@ public class CompetenceRequestDto implements RequestDto {
     @NotBlank(message = "Le nom est obligatoire")
     private String nom;
     private String description;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateObtention;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateExpiration;
 }

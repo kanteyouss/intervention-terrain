@@ -1,17 +1,21 @@
 package com.interventionTerrain.interventionTerrain.service;
 
+import com.interventionTerrain.interventionTerrain.dto.CompetenceRequestDto;
 import com.interventionTerrain.interventionTerrain.dto.CompetenceResponseDto;
 import com.interventionTerrain.interventionTerrain.entity.Competence;
 import com.interventionTerrain.interventionTerrain.entity.Equipe;
 import com.interventionTerrain.interventionTerrain.exception.DoublonRessourceException;
+import com.interventionTerrain.interventionTerrain.exception.ParametresInvalidesException;
 import com.interventionTerrain.interventionTerrain.exception.NotFoundException;
 import com.interventionTerrain.interventionTerrain.exception.RessourceUtiliseeException;
+import com.interventionTerrain.interventionTerrain.repository.CompetenceRepository;
 import com.interventionTerrain.interventionTerrain.repository.EquipeRepository;
 import com.interventionTerrain.interventionTerrain.dto.RequestDto;
 import com.interventionTerrain.interventionTerrain.dto.ResponseDto;
 import com.interventionTerrain.interventionTerrain.dto.TechnicienRequestDto;
 import com.interventionTerrain.interventionTerrain.dto.TechnicienCompetenceResponseDto;
 import com.interventionTerrain.interventionTerrain.dto.TechnicienResponseDto;
+import com.interventionTerrain.interventionTerrain.entity.TechnicienCompetence;
 import com.interventionTerrain.interventionTerrain.repository.TechnicienCompetenceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import com.interventionTerrain.interventionTerrain.entity.Technicien;
 import com.interventionTerrain.interventionTerrain.repository.TechnicienRepository;
 
@@ -36,6 +41,7 @@ public class TechnicienService extends AbstractCrudService {
 
     private final TechnicienRepository technicienRepository;
     private final EquipeRepository equipeRepository;
+    private final CompetenceRepository competenceRepository;
     private final TechnicienCompetenceRepository technicienCompetenceRepository;
     private final EquipeService equipeService;
 
@@ -44,16 +50,19 @@ public class TechnicienService extends AbstractCrudService {
      *
      * @param technicienRepository le repository des techniciens
      * @param equipeRepository le repository des équipes (résolution de la FK)
+     * @param competenceRepository le repository des compétences
      * @param technicienCompetenceRepository le repository de l'association technicien/compétence
      * @param equipeService le service de conversion des équipes
      */
     public TechnicienService(TechnicienRepository technicienRepository,
-                             EquipeRepository equipeRepository,
-                             TechnicienCompetenceRepository technicienCompetenceRepository,
-                             EquipeService equipeService) {
+                              EquipeRepository equipeRepository,
+                              CompetenceRepository competenceRepository,
+                              TechnicienCompetenceRepository technicienCompetenceRepository,
+                              EquipeService equipeService) {
         super(technicienRepository);
         this.technicienRepository = technicienRepository;
         this.equipeRepository = equipeRepository;
+        this.competenceRepository = competenceRepository;
         this.technicienCompetenceRepository = technicienCompetenceRepository;
         this.equipeService = equipeService;
     }
@@ -131,7 +140,7 @@ public class TechnicienService extends AbstractCrudService {
      * @param id L'identifiant du technicien à modifier.
      * @param requestDto Les données de la requête pour modifier le technicien.
      * @return ResponseDto Les détails du technicien modifié.
-     * @throws NotFoundException si le technicien ou l'équipe n'existent pas
+     * @throws NotFoundException si le technicien ou l'équipe n'existe pas
      */
     @Override
     public ResponseDto update(Long id, RequestDto requestDto) {
@@ -175,6 +184,64 @@ public class TechnicienService extends AbstractCrudService {
                                 && link.getDateExpiration().isBefore(aujourd))
                         .build())
                 .toList();
+    }
+
+    /**
+     * Associe une compétence à un technicien.
+     *
+     * @param technicienId L'identifiant du technicien.
+     * @param competenceRequest Les données de la compétence à associer.
+     * @return TechnicienCompetenceResponseDto La compétence associée.
+     * @throws ParametresInvalidesException si la date d'expiration est antérieure
+     *         à la date d'obtention (si fournie).
+     * @throws DoublonRessourceException si le technicien possède déjà cette compétence.
+     */
+    public TechnicienCompetenceResponseDto associerCompetence(Long technicienId, CompetenceRequestDto competenceRequest) {
+        Technicien technicien = technicienRepository.findById(technicienId)
+                .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
+
+        if (competenceRequest == null) {
+            throw new ParametresInvalidesException("La demande de compétence est obligatoire.");
+        }
+        if (competenceRequest.getId() == null) {
+            throw new ParametresInvalidesException("L'identifiant de la compétence est obligatoire.");
+        }
+
+        Competence competence = competenceRepository.findById(competenceRequest.getId())
+                .orElseThrow(() -> new NotFoundException("Compétence non trouvée"));
+
+        LocalDate dateObtention = competenceRequest.getDateObtention() != null
+                ? competenceRequest.getDateObtention()
+                : LocalDate.now();
+        LocalDate dateExpiration = competenceRequest.getDateExpiration();
+
+        if (dateExpiration != null && !dateExpiration.isAfter(dateObtention)) {
+            throw new ParametresInvalidesException("La date d'expiration doit être postérieure à la date d'obtention.");
+        }
+
+        boolean doublonActif = technicienCompetenceRepository.findByTechnicienId(technicienId).stream()
+                .anyMatch(link -> link.getCompetence().getId().equals(competence.getId())
+                        && (link.getDateExpiration() == null || !link.getDateExpiration().isBefore(LocalDate.now())));
+        if (doublonActif) {
+            throw new DoublonRessourceException("Le technicien possède déjà cette compétence active.");
+        }
+
+        TechnicienCompetence link = TechnicienCompetence.builder()
+                .technicien(technicien)
+                .competence(competence)
+                .dateObtention(dateObtention)
+                .dateExpiration(dateExpiration)
+                .build();
+
+        TechnicienCompetence saved = technicienCompetenceRepository.save(link);
+        return TechnicienCompetenceResponseDto.builder()
+                .id(saved.getCompetence().getId())
+                .nom(saved.getCompetence().getNom())
+                .description(saved.getCompetence().getDescription())
+                .dateObtention(saved.getDateObtention())
+                .dateExpiration(saved.getDateExpiration())
+                .expiree(saved.getDateExpiration() != null && saved.getDateExpiration().isBefore(LocalDate.now()))
+                .build();
     }
 
     /**

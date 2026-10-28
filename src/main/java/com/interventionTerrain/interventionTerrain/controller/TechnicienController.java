@@ -2,6 +2,7 @@ package com.interventionTerrain.interventionTerrain.controller;
 
 import com.interventionTerrain.interventionTerrain.dto.TechnicienCompetenceResponseDto;
 import com.interventionTerrain.interventionTerrain.dto.ResponseDto;
+import com.interventionTerrain.interventionTerrain.dto.CompetenceRequestDto;
 import com.interventionTerrain.interventionTerrain.dto.TechnicienRequestDto;
 import com.interventionTerrain.interventionTerrain.dto.InterventionResponseDto;
 import com.interventionTerrain.interventionTerrain.dto.TechnicienResponseDto;
@@ -120,6 +121,23 @@ public class TechnicienController {
     @GetMapping("/{id}/competences")
     public Response<TechnicienCompetenceResponseDto> getCompetencesByTechnicien(@PathVariable Long id) {
         return new Response<>(technicienService.getCompetencesByTechnicien(id));
+    }
+
+    /**
+     * Associe une compétence à un technicien.
+     *
+     * @param technicienId L'identifiant du technicien.
+     * @param competenceRequest Les informations de la compétence à associer (id, dates).
+     * @return Response<TechnicienCompetenceResponseDto> La compétence associée.
+     * @throws ParametresInvalidesException si la date d'expiration est antérieure
+     *         à la date d'obtention.
+     * @throws DoublonRessourceException si le technicien possède déjà cette compétence active.
+     */
+    @PostMapping("/{id}/competences")
+    public Response<TechnicienCompetenceResponseDto> associerCompetence(
+            @PathVariable Long id,
+            @Valid @RequestBody CompetenceRequestDto competenceRequest) {
+        return new Response<>(technicienService.associerCompetence(id, competenceRequest));
     }
 
     /**

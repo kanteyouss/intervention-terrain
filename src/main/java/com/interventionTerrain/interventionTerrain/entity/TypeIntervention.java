@@ -1,6 +1,7 @@
 package com.interventionTerrain.interventionTerrain.entity;
 import jakarta.persistence.*;
 import lombok.*;
+
 /**
  * Représente le type d'intervention que nous pouvons effectuer sur le terrain.
  */

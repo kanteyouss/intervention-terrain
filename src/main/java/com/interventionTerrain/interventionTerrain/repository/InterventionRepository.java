@@ -132,4 +132,13 @@ public interface InterventionRepository extends JpaRepository<Intervention, Long
     List<Intervention> planner(@Param("technicienId") Long technicienId,
                                @Param("du") LocalDateTime du,
                                @Param("auFin") LocalDateTime auFin);
+
+    /**
+     * Récupère les interventions par référence.
+     *
+     * @param reference La référence de l'intervention.
+     * @return List<Intervention> Les interventions correspondantes.
+     */
+    @Query("SELECT i FROM Intervention i WHERE i.reference = :reference")
+    List<Intervention> findByReference(@Param("reference") String reference);
 }

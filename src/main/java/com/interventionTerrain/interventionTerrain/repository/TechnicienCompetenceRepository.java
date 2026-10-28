@@ -50,6 +50,16 @@ public interface TechnicienCompetenceRepository extends JpaRepository<Technicien
      * @param jour la date du jour servant de référence
      * @return une ligne par technicien : {identifiant du technicien, nombre de compétences valides}
      */
+    
+    /**
+     * Vérifie si un technicien possède déjà une compétence par ID.
+     *
+     * @param technicienId L'identifiant du technicien.
+     * @param competenceId L'identifiant de la compétence.
+     * @return true si le technicien possède déjà cette compétence.
+     */
+    boolean existsByTechnicienIdAndCompetenceId(Long technicienId, Long competenceId);
+
     @Query("SELECT tc.technicien.id, COUNT(tc) FROM TechnicienCompetence tc "
             + "JOIN tc.technicien t WHERE t.equipe.agence.id = :agenceId "
             + "AND (tc.dateExpiration IS NULL OR tc.dateExpiration >= :jour) "
