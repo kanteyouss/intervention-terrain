@@ -12,6 +12,7 @@ import com.interventionTerrain.interventionTerrain.repository.TechnicienCompeten
 import com.interventionTerrain.interventionTerrain.entity.Commune;
 import com.interventionTerrain.interventionTerrain.entity.Creneau;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -137,14 +138,14 @@ public class AgenceService extends AbstractCrudService {
         return response;
     }
 
-    public List<TechnicienEffectifResponseDto> getEffectif(Long agenceId) {
+    public Page<TechnicienEffectifResponseDto> getEffectif(Long agenceId, int page, int taille) {
         agenceRepository.findById(agenceId)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
         Map<Long, Long> validesParTechnicien = new HashMap<>();
         for (Object[] ligne : technicienCompetenceRepository.compterValidesParAgence(agenceId, LocalDate.now())) {
             validesParTechnicien.put((Long) ligne[0], (Long) ligne[1]);
         }
-        return technicienRepository.findByAgenceId(agenceId).stream()
+        List<TechnicienEffectifResponseDto> all = technicienRepository.findByAgenceId(agenceId).stream()
                 .sorted(java.util.Comparator.comparing(t -> t.getNom().toLowerCase()))
                 .map(t -> TechnicienEffectifResponseDto.builder()
                         .id(t.getId())
@@ -154,6 +155,14 @@ public class AgenceService extends AbstractCrudService {
                         .nbCompetencesValides(validesParTechnicien.getOrDefault(t.getId(), 0L))
                         .build())
                 .toList();
+
+        Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille));
+        int start = (int) pageable.getOffset();
+        if (start >= all.size()) {
+            return new PageImpl<>(List.of(), pageable, all.size());
+        }
+        int end = Math.min(start + pageable.getPageSize(), all.size());
+        return new PageImpl<>(all.subList(start, end), pageable, all.size());
     }
 
     public ChargeAgenceDto getCharge(Long agenceId, LocalDate du, LocalDate au) {

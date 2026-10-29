@@ -251,12 +251,20 @@ public class InterventionService extends AbstractCrudService {
         return interventionRepository.findAll(pageable).map(this::toDto);
     }
 
-    public List<ResponseDto> getHistoriqueByClient(Long clientId) {
+    public Page<ResponseDto> getHistoriqueByClient(Long clientId, int page, int taille) {
         clientRepository.findById(clientId)
                 .orElseThrow(() -> new NotFoundException("Client non trouvé"));
-        return interventionRepository.findByClientId(clientId).stream()
+        List<ResponseDto> all = interventionRepository.findByClientId(clientId).stream()
                 .map(this::toDto)
                 .toList();
+
+        Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille));
+        int start = (int) pageable.getOffset();
+        if (start >= all.size()) {
+            return new PageImpl<>(List.of(), pageable, all.size());
+        }
+        int end = Math.min(start + pageable.getPageSize(), all.size());
+        return new PageImpl<>(all.subList(start, end), pageable, all.size());
     }
 
     public Page<ResponseDto> getAllFiltre(String statut, LocalDate du, LocalDate au, int page, int taille) {

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -69,11 +70,13 @@ public class AgenceController {
         return new Response<>(agenceService.delete(id));
     }
 
-    @Operation(summary = "Obtenir l'effectif des techniciens", description = "Récupère la liste et le nombre de techniciens rattachés à une agence.")
+    @Operation(summary = "Obtenir l'effectif des techniciens", description = "Récupère la liste paginée des techniciens rattachés à une agence.")
     @GetMapping("/{id}/techniciens")
     public Response<TechnicienEffectifResponseDto> getEffectif(
-            @Parameter(description = "ID de l'agence", required = true) @PathVariable Long id) throws Throwable {
-        return new Response<>(agenceService.getEffectif(id));
+            @Parameter(description = "ID de l'agence", required = true) @PathVariable Long id,
+            @Parameter(description = "Numéro de la page (commence à 0)") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Nombre d'éléments par page") @RequestParam(defaultValue = "10") int taille) throws Throwable {
+        return new Response<>(agenceService.getEffectif(id, page, taille));
     }
 
     @Operation(summary = "Consulter la charge de travail", description = "Calcule la charge de travail d'une agence sur une plage de dates optionnelle.")

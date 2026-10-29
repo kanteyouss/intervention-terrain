@@ -32,6 +32,7 @@ import com.interventionTerrain.interventionTerrain.exception.ParametresInvalides
 import com.interventionTerrain.interventionTerrain.exception.RessourceUtiliseeException;
 import com.interventionTerrain.interventionTerrain.repository.TechnicienCompetenceRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -180,11 +181,11 @@ public class TechnicienService extends AbstractCrudService {
                 .toList();
     }
 
-    public List<TechnicienCompetenceResponseDto> getCompetencesByTechnicien(Long technicienId) {
+    public Page<TechnicienCompetenceResponseDto> getCompetencesByTechnicien(Long technicienId, int page, int taille) {
         technicienRepository.findById(technicienId)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
         LocalDate aujourd = LocalDate.now();
-        return technicienCompetenceRepository.findByTechnicienId(technicienId).stream()
+        List<TechnicienCompetenceResponseDto> all = technicienCompetenceRepository.findByTechnicienId(technicienId).stream()
                 .map(link -> TechnicienCompetenceResponseDto.builder()
                         .id(link.getCompetence().getId())
                         .nom(link.getCompetence().getLibelle())
@@ -194,6 +195,14 @@ public class TechnicienService extends AbstractCrudService {
                         .expiree(link.getDateExpiration() != null && link.getDateExpiration().isBefore(aujourd))
                         .build())
                 .toList();
+
+        Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille));
+        int start = (int) pageable.getOffset();
+        if (start >= all.size()) {
+            return new PageImpl<>(List.of(), pageable, all.size());
+        }
+        int end = Math.min(start + pageable.getPageSize(), all.size());
+        return new PageImpl<>(all.subList(start, end), pageable, all.size());
     }
 
     public TechnicienCompetenceResponseDto associerCompetence(Long technicienId, CompetenceRequestDto competenceRequest) {

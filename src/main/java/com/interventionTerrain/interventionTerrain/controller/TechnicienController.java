@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,12 +85,13 @@ public class TechnicienController {
         return new Response<>(technicienService.delete(id));
     }
 
-    @Operation(summary = "Obtenir les compétences d'un technicien", description = "Récupère la liste des compétences" +
-            " associées à un technicien spécifique.")
+    @Operation(summary = "Obtenir les compétences d'un technicien", description = "Récupère la liste paginée des compétences associées à un technicien spécifique.")
     @GetMapping("/{id}/competences")
     public Response<TechnicienCompetenceResponseDto> getCompetences(
-            @Parameter(description = "ID du technicien", required = true) @PathVariable Long id) throws Throwable {
-        return new Response<>(technicienService.getCompetencesByTechnicien(id));
+            @Parameter(description = "ID du technicien", required = true) @PathVariable Long id,
+            @Parameter(description = "Numéro de la page (commence à 0)") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Nombre d'éléments par page") @RequestParam(defaultValue = "10") int taille) throws Throwable {
+        return new Response<>(technicienService.getCompetencesByTechnicien(id, page, taille));
     }
 
     @Operation(summary = "Associer une compétence à un technicien", description = "Ajoute une nouvelle compétence" +

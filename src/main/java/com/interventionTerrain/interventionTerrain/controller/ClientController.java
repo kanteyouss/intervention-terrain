@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -67,10 +68,12 @@ public class ClientController {
         return new Response<>(clientService.delete(id));
     }
 
-    @Operation(summary = "Obtenir l'historique des interventions", description = "Récupère la liste de toutes les interventions réalisées pour un client spécifique.")
+    @Operation(summary = "Obtenir l'historique des interventions", description = "Récupère la liste paginée de toutes les interventions réalisées pour un client spécifique.")
     @GetMapping("/{id}/interventions")
     public Response<ResponseDto> getInterventions(
-            @Parameter(description = "ID du client concerné", required = true) @PathVariable Long id) throws Throwable {
-        return new Response<>(interventionService.getHistoriqueByClient(id));
+            @Parameter(description = "ID du client concerné", required = true) @PathVariable Long id,
+            @Parameter(description = "Numéro de la page (commence à 0)") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Nombre d'éléments par page") @RequestParam(defaultValue = "10") int taille) throws Throwable {
+        return new Response<>(interventionService.getHistoriqueByClient(id, page, taille));
     }
 }
