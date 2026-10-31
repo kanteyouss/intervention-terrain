@@ -86,8 +86,18 @@ public class GlobalException {
         reponse.setStatus(new Status(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reponse);
     }
+    @ExceptionHandler(org.springframework.web.bind.MissingServletRequestParameterException.class)
+    public ResponseEntity<Response<String>> handleMissingServletRequestParameter(org.springframework.web.bind.MissingServletRequestParameterException ex) {
+        Response<String> reponse = new Response<>(Collections.emptyList());
+        reponse.setNombre(0L);
+        reponse.setHasError(true);
+        reponse.setStatus(new Status(HttpStatus.BAD_REQUEST.value(), "Le paramètre requis '" + ex.getParameterName() + "' est manquant"));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reponse);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response<String>> handleGenericException(Exception ex) {
+        ex.printStackTrace();
         Response<String> reponse = new Response<>(Collections.emptyList());
         reponse.setNombre(0L);
         reponse.setHasError(true);

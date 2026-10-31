@@ -227,7 +227,6 @@ public class InterventionService extends AbstractCrudService {
         return toDto(intervention);
     }
 
-    @Override
     @Transactional
     public ResponseDto delete(Long id) throws Throwable {
         Intervention intervention = interventionRepository.findById(id)
@@ -238,13 +237,13 @@ public class InterventionService extends AbstractCrudService {
         }
 
         ResponseDto response = toDto(intervention);
+        historiqueStatutRepository.deleteByInterventionId(id);
         interventionTechnicienRepository.deleteByInterventionId(id);
         interventionCreneauxRepository.deleteByInterventionId(id);
         interventionRepository.deleteById(id);
         return response;
     }
 
-    @Override
     public Page<ResponseDto> getAll(int page, int taille) {
         Sort sort = Sort.by(Sort.Order.asc("datePlanifiee"));
         Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille), sort);
@@ -437,7 +436,6 @@ public class InterventionService extends AbstractCrudService {
                 .build();
     }
 
-    @Override
     protected String messageIntrouvable() {
         return "Intervention non trouvée";
     }

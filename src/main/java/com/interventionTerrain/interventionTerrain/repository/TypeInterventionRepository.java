@@ -17,4 +17,6 @@ public interface TypeInterventionRepository extends JpaRepository<TypeInterventi
     List<Long> findCompetenceIdsByTypeInterventionId(@Param("typeInterventionId") Long typeInterventionId);
 
     Optional<TypeIntervention> findByNomIgnoreCase(String nom);
+
+    Optional<TypeIntervention> findFirstByNomContainingIgnoreCase(String nom);
 }

@@ -2,45 +2,48 @@ package com.interventionTerrain.interventionTerrain.service;
 
 import com.interventionTerrain.interventionTerrain.dto.TauxReussiteDetailDto;
 import com.interventionTerrain.interventionTerrain.dto.TauxReussiteGlobalDto;
+import com.interventionTerrain.interventionTerrain.entity.Agence;
 import com.interventionTerrain.interventionTerrain.entity.TauxReussiteView;
 import com.interventionTerrain.interventionTerrain.exception.NotFoundException;
+import com.interventionTerrain.interventionTerrain.repository.AgenceRepository;
+import com.interventionTerrain.interventionTerrain.repository.TauxReussiteViewRepository;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+/**
+ * Service calculant le taux de réussite des interventions par agence et par mois (Règle F19).
+ * Utilise les repositories Spring Data JPA sans requête directe via EntityManager.
+ */
 @Service
 public class TauxReussiteService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final TauxReussiteViewRepository tauxReussiteViewRepository;
+    private final AgenceRepository agenceRepository;
+
+    public TauxReussiteService(TauxReussiteViewRepository tauxReussiteViewRepository,
+                               AgenceRepository agenceRepository) {
+        this.tauxReussiteViewRepository = tauxReussiteViewRepository;
+        this.agenceRepository = agenceRepository;
+    }
 
     public TauxReussiteGlobalDto getTauxReussite(Long agenceId, String mois) {
-        List<TauxReussiteView> lignes = entityManager.createQuery(
-                "SELECT v FROM TauxReussiteView v WHERE v.agenceId = :agenceId AND v.mois = :mois",
-                TauxReussiteView.class)
-                .setParameter("agenceId", agenceId)
-                .setParameter("mois", mois)
-                .getResultList();
+        Agence agence = agenceRepository.findById(agenceId)
+                .orElseThrow(() -> new NotFoundException("Agence introuvable avec l'ID " + agenceId));
+
+        List<TauxReussiteView> lignes = tauxReussiteViewRepository.findByAgenceIdAndMois(agenceId, mois);
 
         if (lignes.isEmpty()) {
-            String agenceNom = (String) entityManager.createQuery(
-                    "SELECT a.nom FROM Agence a WHERE a.id = :id")
-                    .setParameter("id", agenceId)
-                    .getSingleResult();
             return TauxReussiteGlobalDto.builder()
                     .agenceId(agenceId)
-                    .agenceNom(agenceNom)
+                    .agenceNom(agence.getNom())
                     .mois(mois)
                     .tauxGlobal(0.0)
                     .details(List.of())
                     .build();
         }
 
-        String agenceNom = lignes.get(0).getAgenceNom();
+        String agenceNom = agence.getNom();
 
         List<TauxReussiteDetailDto> details = lignes.stream()
                 .map(v -> {

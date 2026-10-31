@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TechnicienCompetenceResponseDto implements ResponseDto {
     private Long id;
+    private String libelle;
     private String nom;
     private String description;
     private LocalDate dateObtention;

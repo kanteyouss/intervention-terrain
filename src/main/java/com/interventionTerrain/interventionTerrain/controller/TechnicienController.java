@@ -106,10 +106,10 @@ public class TechnicienController {
     @GetMapping("/{id}/planning")
     public Response<ResponseDto> getPlanning(
             @Parameter(description = "ID du technicien", required = true) @PathVariable Long id,
-            @Parameter(description = "Date de début ", example = "10-01-2026")
-            @RequestParam(required = false) LocalDate du,
-            @Parameter(description = "Date de fin (Format: YYYY-MM-DD)", example = "10-01-2026")
-            @RequestParam(required = false) LocalDate au) throws Throwable {
+            @Parameter(description = "Date de début (Format: YYYY-MM-DD)", example = "2026-10-01")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate du,
+            @Parameter(description = "Date de fin (Format: YYYY-MM-DD)", example = "2026-10-31")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate au) throws Throwable {
         return new Response<>(interventionService.getPlanning(id, du, au));
     }
 

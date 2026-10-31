@@ -106,7 +106,8 @@ INSERT INTO competence (id, libelle, description) VALUES
     (4, 'Plomberie & Chauffage Industriel', 'Pose et dépannage circuits hydrauliques'),
     (5, 'Sécurité Incendie & SSI', 'Maintenance des déclencheurs et centrales'),
     (6, 'Câblage Structuré VDI', 'Installation baie de brassage et prises RJ45'),
-    (7, 'Froid et Climatisation', 'Charge de fluide frigorigène et compresseur');
+    (7, 'Froid et Climatisation', 'Charge de fluide frigorigène et compresseur'),
+    (15, 'Audit Énergétique & Bilan Carbone', 'Mesure et certification efficacité thermique');
 
 INSERT INTO types_intervention (id, nom, description, delai_heures) VALUES
     (1, 'Raccordement Fibre', 'Raccordement abonné au réseau fibre optique', 2),
@@ -187,23 +188,28 @@ INSERT INTO client (id, nom, prenom, email, telephone, adresse, commune) VALUES
 INSERT INTO intervention (id, date_planifiee, statut, commentaire, reference, type_intervention_id, client_id) VALUES
     -- Aujourd'hui : Interventions pour calcul charge / restitution F17 / F18
     (1, CURRENT_DATE, 'EN_COURS', 'Raccordement fibre duplex salon', 'INT-2026-001', 1, 1),
-    (2, CURRENT_DATE, 'PLANIFIEE', 'Contrôle tableau divisionnaire', 'INT-2026-002', 2, 2),
+    (2, CURRENT_DATE + INTERVAL '10 days', 'PLANIFIEE', 'Contrôle tableau divisionnaire', 'INT-2026-002', 2, 2),
     (3, CURRENT_DATE, 'ANNULEE', 'Client absent au rendez-vous', 'INT-2026-003', 1, 3),
-    -- Mois en cours : Réussites et Échecs pour taux de réussite F19
-    (4, CURRENT_DATE - INTERVAL '2 days', 'TERMINEE', 'Raccordement FTTH réussi avec tests débit conformes', 'INT-2026-004', 1, 1),
-    (5, CURRENT_DATE - INTERVAL '3 days', 'TERMINEE', 'Maintenance armoire TGBT terminée', 'INT-2026-005', 2, 4),
-    (6, CURRENT_DATE - INTERVAL '5 days', 'ECHOUEE', 'Gaine télécom obstruée - passage impossible', 'INT-2026-006', 1, 3),
+    -- Intervention PLANIFIEE pour tester transition vers ANNULEE (F14)
+    (4, CURRENT_DATE + INTERVAL '8 days', 'PLANIFIEE', 'Raccordement FTTH à planifier', 'INT-2026-004', 1, 1),
+    -- Intervention EN_COURS pour tester transition vers TERMINEE (F14)
+    (5, CURRENT_DATE - INTERVAL '1 day', 'EN_COURS', 'Maintenance armoire TGBT en cours', 'INT-2026-005', 2, 4),
+    -- Intervention PLANIFIEE pour tester CRUD F5 (Consultation, Reprogrammation, Suppression)
+    (6, CURRENT_DATE + INTERVAL '5 days', 'PLANIFIEE', 'Installation baie réseau prévue', 'INT-2026-006', 3, 2),
     (7, CURRENT_DATE - INTERVAL '6 days', 'TERMINEE', 'Installation baie réseau complète', 'INT-2026-007', 3, 2),
-    (8, CURRENT_DATE - INTERVAL '7 days', 'ECHOUEE', 'Compresseur hors service - pièce manquante', 'INT-2026-008', 4, 5),
+    -- Intervention EN_COURS pour tester transition vers ECHOUEE (F14)
+    (8, CURRENT_DATE - INTERVAL '1 day', 'EN_COURS', 'Compresseur dépannage en cours', 'INT-2026-008', 4, 5),
     (9, CURRENT_DATE - INTERVAL '10 days', 'TERMINEE', 'Audit de sécurité incendie validé sans réserve', 'INT-2026-009', 5, 4),
     (10, CURRENT_DATE - INTERVAL '12 days', 'TERMINEE', 'Raccordement fibre entreprise', 'INT-2026-010', 1, 2),
-    -- Interventions futures (semaine prochaine)
+    -- Interventions futures
     (11, CURRENT_DATE + INTERVAL '2 days', 'PLANIFIEE', 'Maintenance planifiée serveurs et baie', 'INT-2026-011', 3, 2),
     (12, CURRENT_DATE + INTERVAL '3 days', 'PLANIFIEE', 'Raccordement nouvel abonné fibre', 'INT-2026-012', 1, 5),
     -- Mois dernier pour statistiques comparatives (F19)
     (13, CURRENT_DATE - INTERVAL '1 month', 'TERMINEE', 'Installation initiale fibre', 'INT-2026-013', 1, 1),
     (14, CURRENT_DATE - INTERVAL '1 month', 'TERMINEE', 'Vérification disjoncteurs', 'INT-2026-014', 2, 4),
-    (15, CURRENT_DATE - INTERVAL '1 month', 'ECHOUEE', 'Absence d alimentation générale sur site', 'INT-2026-015', 2, 3);
+    (15, CURRENT_DATE - INTERVAL '1 month', 'ECHOUEE', 'Absence d alimentation générale sur site', 'INT-2026-015', 2, 3),
+    -- Intervention ECHOUEE pour tester la reprise F15
+    (16, CURRENT_DATE - INTERVAL '2 days', 'ECHOUEE', 'Compresseur hors service - échec à reprendre', 'INT-2026-016', 4, 5);
 
 -- Association Intervention - Créneau
 INSERT INTO intervention_creneau (id, creneau_id, intervention_id) VALUES
@@ -221,7 +227,8 @@ INSERT INTO intervention_creneau (id, creneau_id, intervention_id) VALUES
     (12, 1, 12), -- INT 12 sur créneau 08:00 - 10:00 (2h)
     (13, 1, 13),
     (14, 2, 14),
-    (15, 3, 15);
+    (15, 3, 15),
+    (16, 5, 16);
 
 -- Association Intervention - Technicien
 INSERT INTO intervention_technicien (id, est_responsable, intervention_id, technicien_id) VALUES
@@ -230,8 +237,8 @@ INSERT INTO intervention_technicien (id, est_responsable, intervention_id, techn
     (3, true, 3, 2),   -- Tech 2 (Diallo Moussa)
     (4, true, 4, 1),   -- Tech 1
     (5, true, 5, 4),   -- Tech 4
-    (6, true, 6, 1),   -- Tech 1 (Intervention échouée prête pour reprise F15)
-    (7, true, 7, 6),   -- Tech 6 (Coulibaly Ibrahim)
+    (6, true, 6, 6),   -- Tech 6 (Coulibaly Ibrahim)
+    (7, true, 7, 6),   -- Tech 6
     (8, true, 8, 8),   -- Tech 8 (Ouattara Alassane)
     (9, true, 9, 4),   -- Tech 4
     (10, true, 10, 1), -- Tech 1
@@ -239,7 +246,8 @@ INSERT INTO intervention_technicien (id, est_responsable, intervention_id, techn
     (12, true, 12, 10),-- Tech 10
     (13, true, 13, 1),
     (14, true, 14, 4),
-    (15, true, 15, 4);
+    (15, true, 15, 4),
+    (16, true, 16, 8);
 
 -- Historique des changements de statut (F14)
 INSERT INTO historique_statut (id, date_changement, auteur, intervention_id, statut_id) VALUES

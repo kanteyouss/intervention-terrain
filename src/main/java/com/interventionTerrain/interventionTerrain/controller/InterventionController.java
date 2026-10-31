@@ -31,8 +31,8 @@ public class InterventionController {
             @Parameter(description = "Numéro de la page (commence à 0)") @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Nombre d'éléments par page") @RequestParam(defaultValue = "10") int taille,
             @Parameter(description = "Statut de l'intervention (ex: PLANIFIEE, EN_COURS, TERMINEE, ECHEC)") @RequestParam(required = false) String statut,
-            @Parameter(description = "Date de début de la plage (Format: YYYY-MM-DD)", example = "2026-10-01") @RequestParam(required = false) LocalDate du,
-            @Parameter(description = "Date de fin de la plage (Format: YYYY-MM-DD)", example = "2026-10-31") @RequestParam(required = false) LocalDate au) {
+            @Parameter(description = "Date de début de la plage (Format: YYYY-MM-DD)", example = "2026-10-01") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate du,
+            @Parameter(description = "Date de fin de la plage (Format: YYYY-MM-DD)", example = "2026-10-31") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate au) {
             return new Response<>(interventionService.getInterventions(statut, du, au, page, taille));
 
     }

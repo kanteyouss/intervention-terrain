@@ -1,7 +1,8 @@
 package com.interventionTerrain.interventionTerrain.dto;
 
-import com.interventionTerrain.interventionTerrain.service.AbstractClean;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.interventionTerrain.interventionTerrain.service.AbstractClean;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -22,17 +23,16 @@ public class CompetenceRequestDto extends AbstractClean implements RequestDto {
 
     private String description;
 
-    @NotNull(message = "La date d'obtention est obligatoire")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateObtention;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateExpiration;
 
+    @JsonSetter
     public void setLibelle(String libelle) {
         this.libelle = cleanText(libelle);
     }
 
+    @JsonSetter
     public void setDescription(String description) {
         this.description = cleanText(description);
     }

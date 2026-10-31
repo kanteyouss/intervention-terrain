@@ -13,6 +13,10 @@ import com.interventionTerrain.interventionTerrain.entity.TechnicienCompetence;
 public interface TechnicienCompetenceRepository extends JpaRepository<TechnicienCompetence, Long> {
 
     List<TechnicienCompetence> findByTechnicienId(Long technicienId);
+
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("DELETE FROM TechnicienCompetence tc WHERE tc.technicien.id = :technicienId")
+    void deleteByTechnicienId(@Param("technicienId") Long technicienId);
     List<TechnicienCompetence> findByDateExpirationBetween(LocalDate debut, LocalDate fin);
 
     @Query("SELECT tc.technicien.id, COUNT(tc) FROM TechnicienCompetence tc " +

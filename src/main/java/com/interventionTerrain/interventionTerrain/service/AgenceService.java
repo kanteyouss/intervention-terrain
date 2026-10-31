@@ -82,7 +82,6 @@ public class AgenceService extends AbstractCrudService {
                 .build();
     }
 
-    @Override
     public Page<ResponseDto> getAll(int page, int taille) {
         Sort sort = Sort.by(Sort.Order.asc("ville"), Sort.Order.asc("nom"));
         Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille), sort);
@@ -125,7 +124,6 @@ public class AgenceService extends AbstractCrudService {
         return toDto(agenceRepository.save(agence));
     }
 
-    @Override
     public ResponseDto delete(Long id) throws Throwable {
         Agence agence = agenceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
@@ -218,7 +216,6 @@ public class AgenceService extends AbstractCrudService {
         return toDto(agence);
     }
 
-    @Override
     protected String messageIntrouvable() {
         return "Agence non trouvée";
     }

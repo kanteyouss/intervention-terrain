@@ -53,7 +53,6 @@ public class ClientService extends AbstractCrudService {
                 .build();
     }
 
-    @Override
     public Page<ResponseDto> getAll(int page, int taille) {
         Sort sort = Sort.by(Sort.Order.asc("nom"));
         Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille), sort);
@@ -80,7 +79,6 @@ public class ClientService extends AbstractCrudService {
         return toDto(clientRepository.save(client));
     }
 
-    @Override
     public ResponseDto delete(Long id) throws Throwable {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
@@ -98,7 +96,6 @@ public class ClientService extends AbstractCrudService {
         return toDto(client);
     }
 
-    @Override
     protected String messageIntrouvable() {
         return "Client non trouvé";
     }

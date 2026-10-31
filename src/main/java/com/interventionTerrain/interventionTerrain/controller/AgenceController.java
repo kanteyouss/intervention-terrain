@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -80,8 +81,8 @@ public class AgenceController {
     @GetMapping("/{id}/charge")
     public Response<ChargeAgenceDto> getCharge(
             @Parameter(description = "ID de l'agence", required = true) @PathVariable Long id,
-            @Parameter(description = "Date de début (Format: YYYY-MM-DD)", example = "2026-10-01") @RequestParam(required = false) LocalDate du,
-            @Parameter(description = "Date de fin (Format: YYYY-MM-DD)", example = "2026-10-31") @RequestParam(required = false) LocalDate au) throws Throwable {
+            @Parameter(description = "Date de début (Format: YYYY-MM-DD)", example = "2026-10-01") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate du,
+            @Parameter(description = "Date de fin (Format: YYYY-MM-DD)", example = "2026-10-31") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate au) throws Throwable {
         return new Response<>(agenceService.getCharge(id, du, au));
     }
 
@@ -89,7 +90,9 @@ public class AgenceController {
     @GetMapping("/{id}/taux-reussite")
     public Response<TauxReussiteGlobalDto> getTauxReussite(
             @Parameter(description = "ID de l'agence", required = true) @PathVariable Long id,
-            @Parameter(description = "Mois concerné (Format: YYYY-MM)", example = "2026-10", required = true) @RequestParam String mois) throws Throwable {
-        return new Response<>(agenceService.getTauxReussite(id, mois));
+            @Parameter(description = "Mois concerné (Format: YYYY-MM)", example = "2026-10")
+            @RequestParam(required = false) String mois) throws Throwable {
+        String moisEffectif = (mois != null && !mois.isBlank()) ? mois : "2026-10";
+        return new Response<>(agenceService.getTauxReussite(id, moisEffectif));
     }
 }

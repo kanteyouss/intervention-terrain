@@ -1,5 +1,7 @@
 package com.interventionTerrain.interventionTerrain.dto;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.interventionTerrain.interventionTerrain.service.AbstractClean;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -15,7 +17,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InterventionRequestDto implements RequestDto {
+public class InterventionRequestDto extends AbstractClean implements RequestDto {
     private Long id;
 
     @NotNull(message = "La date planifiée est obligatoire")
@@ -40,4 +42,19 @@ public class InterventionRequestDto implements RequestDto {
 
     @NotNull(message = "Le créneau est obligatoire")
     private Long creneauId;
+
+    @JsonSetter
+    public void setReference(String reference) {
+        this.reference = cleanText(reference);
+    }
+
+    @JsonSetter
+    public void setCommentaire(String commentaire) {
+        this.commentaire = cleanText(commentaire);
+    }
+
+    @JsonSetter
+    public void setStatut(String statut) {
+        this.statut = cleanText(statut);
+    }
 }

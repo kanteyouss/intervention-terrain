@@ -43,9 +43,8 @@ public class CompetenceService extends AbstractCrudService {
                 .build();
     }
 
-    @Override
     public Page<ResponseDto> getAll(int page, int taille) {
-        Sort sort = Sort.by(Sort.Order.asc("nom"));
+        Sort sort = Sort.by(Sort.Order.asc("libelle"));
         Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille), sort);
         return competenceRepository.findAll(pageable).map(this::toDto);
     }
@@ -79,7 +78,6 @@ public class CompetenceService extends AbstractCrudService {
         return toDto(competenceRepository.save(competence));
     }
 
-    @Override
     public ResponseDto delete(Long id) throws Throwable {
         Competence competence = competenceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
@@ -97,7 +95,6 @@ public class CompetenceService extends AbstractCrudService {
         return toDto(competence);
     }
 
-    @Override
     protected String messageIntrouvable() {
         return "Compétence non trouvée";
     }

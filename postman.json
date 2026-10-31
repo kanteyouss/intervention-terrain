@@ -1,0 +1,3542 @@
+{
+  "info": {
+    "_postman_id": "9c7eda71-dafa-42c9-9fc1-8306db8c140b",
+    "name": "ZKANTAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47687319"
+  },
+  "item": [
+    {
+      "name": "billetterie",
+      "item": [
+        {
+          "name": "niveau_1",
+          "item": [
+            {
+              "name": "01_salles",
+              "item": [
+                {
+                  "name": "[POST] Créer une salle (Nouvelle salle valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"salle rouge\",\n    \"ville\": \"abidjan\",\n    \"capacite\": 3,\n    \"adresse\": \"cocody danga\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/salle",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salle"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/salle -H \"Content-Type: application/json\" -d '{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":200}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer une salle (Doublon refusé)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":150}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/salle",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salle"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/salle -H \"Content-Type: application/json\" -d '{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":150}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les salles (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{billet}}/salles?page=0&size=10",
+                      "host": [
+                        "{{billet}}"
+                      ],
+                      "path": [
+                        "salles"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "10"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/salle?page=0&size=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer une salle (Doublon refusé)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":150}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/salle",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salle"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/salle -H \"Content-Type: application/json\" -d '{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":150}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Détail d'une salle (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/salle/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salle",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/salle/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une salle (Mise à jour capacité)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"salle rouge\",\n    \"ville\": \"abidjan\",\n    \"capacite\": 3,\n    \"adresse\": \"cocody danga\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/salles/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salles",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/salle/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Olympia\",\"ville\":\"Paris\",\"capacite\":300}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une salle (Refusé si places/événements)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/salle/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "salle",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X DELETE {{loc}}/salle/1"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "02_places",
+              "item": [
+                {
+                  "name": "[POST] Créer une place (Nouvelle place Orchestre)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"rang\": 1,\n    \"numero\": 1,\n    \"categorieId\": \"1\",\n    \"salleId\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/places",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "places"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/place -H \"Content-Type: application/json\" -d '{\"rang\":1,\"numero\":1,\"categorieLibelle\":\"Orchestre\",\"salleId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer une place (Doublon rang/numéro refusé)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"rang\":1,\"numero\":1,\"categorieLibelle\":\"Balcon\",\"salleId\":1}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/places",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "places"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/place -H \"Content-Type: application/json\" -d '{\"rang\":1,\"numero\":1,\"categorieLibelle\":\"Balcon\",\"salleId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les places (Triées par rang et numéro)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/place",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "place"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/place?page=0&size=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Détail d'une place (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/place/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "place",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/place/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une place (Changement de catégorie)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"categorieLibelle\":\"Balcon\"}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/place/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "place",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/place/1 -H \"Content-Type: application/json\" -d '{\"categorieLibelle\":\"Balcon\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une place (Refusée si réservée)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/place/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "place",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X DELETE {{loc}}/place/1"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "03_evenements",
+              "item": [
+                {
+                  "name": "[POST] Créer un événement (Date future valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"titre\": \"Concedrt Jazz\",\n    \"horaire\": \"2026-11-01 20:00:00\",\n    \"placementLibre\": false,\n    \"salleId\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/evenements",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenements"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/evenement -H \"Content-Type: application/json\" -d '{\"titre\":\"Concert Jazz\",\"horaire\":\"2026-11-01T20:00:00\",\"placementLibre\":false,\"salleId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer un événement (Date passée refusée)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"titre\": \"Passé\",\n    \"horaire\": \"2026-10-01 20:00:00\",\n    \"placementLibre\": false,\n    \"salleId\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/evenements",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenements"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/evenement -H \"Content-Type: application/json\" -d '{\"titre\":\"Passé\",\"horaire\":\"2026-10-01T20:00:00\",\"placementLibre\":false,\"salleId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les événements (Triés par date croissante)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/evenements?page=0&size=1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenements"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/evenement?page=0&size=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Détail d'un événement (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/evenements/6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenements",
+                        "6"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/evenement/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Reporter un événement (Nouvelle date future)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"titre\": \"Concert Jazz\",\n    \"horaire\": \"2026-11-15 20:00:00\",\n    \"placementLibre\": false,\n    \"salleId\": 6\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/evenements/6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenements",
+                        "6"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/evenement/1 -H \"Content-Type: application/json\" -d '{\"titre\":\"Concert Jazz\",\"horaire\":\"2026-11-15T20:00:00\",\"placementLibre\":false,\"salleId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer un événement (Refusé si réservations)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/evenement/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "evenement",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X DELETE {{loc}}/evenement/1"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "04_reservations",
+              "item": [
+                {
+                  "name": "[POST] Créer une réservation (Statut PROVISOIRE)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"clientId\": 1,\n    \"evenementId\": 6,\n    \"statutId\": 1,\n    \"montantTotal\": 100.00,\n    \"lignes\": [\n      {\"categorieId\": 3, \"quantite\": 1}\n    ]\n  }",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/reservations",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "reservations"
+                      ],
+                      "query": [
+                        {
+                          "key": "size",
+                          "value": "1",
+                          "disabled": true
+                        },
+                        {
+                          "key": "page",
+                          "value": "0",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/reservation -H \"Content-Type: application/json\" -d '{\"clientNom\":\"Dupont\",\"clientEmail\":\"dupont@exemple.com\",\"evenementId\":1,\"placeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les réservations (Triées date décroissante)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"dateAnnulation\": null,\n    \"clientId\": 1,\n    \"montantTotal\": 300.00,\n    \"montantRembourse\": null,\n    \"evenementId\": 1,\n    \"statutId\": 2\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/reservations?size=100&page=6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "reservations"
+                      ],
+                      "query": [
+                        {
+                          "key": "size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "page",
+                          "value": "6"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/reservation?page=0&size=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Détail d'une réservation (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/reservations/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "reservations",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/reservation/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une réservation (Mise à jour client)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"clientNom\":\"Martin\",\"clientEmail\":\"martin@exemple.com\",\"statutId\":1}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/reservation/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "reservation",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/reservation/1 -H \"Content-Type: application/json\" -d '{\"clientNom\":\"Martin\",\"clientEmail\":\"martin@exemple.com\",\"statutId\":1}'"
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "niveau_2",
+          "item": [
+            {
+              "name": "[GET] Lister les places d'une salle (Liste complète)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/salle/1/places",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "salle",
+                    "1",
+                    "places"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/salle/1/places\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Filtrer les places par catégorie (Catégorie BALCON)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/salles/1/places?categorie=or",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "salles",
+                    "1",
+                    "places"
+                  ],
+                  "query": [
+                    {
+                      "key": "categorie",
+                      "value": "or"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/salle/1/places?categorie=BALCON\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Filtrer les places par catégorie (Sans filtre - toutes)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/salle/1/places",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "salle",
+                    "1",
+                    "places"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/salle/1/places\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Lister les événements d'une salle (Par salle ID)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/salles/1/evenements",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "salles",
+                    "1",
+                    "evenements"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/salle/1/evenements\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Rechercher événements sur période (Novembre 2026)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenements?du=01-11-2026 00:00:00&au=30-11-2026 23:59:59&size=1&page=0",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenements"
+                  ],
+                  "query": [
+                    {
+                      "key": "du",
+                      "value": "01-11-2026 00:00:00"
+                    },
+                    {
+                      "key": "au",
+                      "value": "30-11-2026 23:59:59"
+                    },
+                    {
+                      "key": "size",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/evenements?du=2026-11-01&au=2026-11-30\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Rechercher événements sur période (Borne du seule)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenements?du=30-11-2026 23:59:59&size=1&page=0",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenements"
+                  ],
+                  "query": [
+                    {
+                      "key": "du",
+                      "value": "30-11-2026 23:59:59"
+                    },
+                    {
+                      "key": "size",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/evenements?du=2026-11-01\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Paginer les réservations (Page 0 triée par date)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations?page=0&size=100",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "dateCreation,desccc",
+                      "disabled": true
+                    },
+                    {
+                      "key": "size",
+                      "value": "100"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/reservations?page=0&size=20&sort=dateCreation,desc\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Paginer les réservations (Première page défaut)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/reservations?page=0\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Rechercher réservations par email (Email exact)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations?email=kante@email.com",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "kante@email.com"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/reservations?email=client@exemple.ci\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Rechercher réservations par email (Casse ignorée)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{loc}}/reservations?email=CLIENT@EXEMPLE.CI\""
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "niveau_3",
+          "item": [
+            {
+              "name": "[POST] Réserver une place (Double réservation refusée)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"clientId\": 1,\n    \"evenementId\": 3,\n    \"statutId\": 1,\n    \"montantTotal\": 100.00,\n    \"lignes\": [\n      {\"categorieId\": 3, \"quantite\": 1}\n    ]\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{loc}}/reservations",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation -H \"Content-Type: application/json\" -d '{\"clientNom\":\"A\",\"clientEmail\":\"a@x.com\",\"evenementId\":1,\"placeId\":1}'"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Réserver une place (Place hors salle événement)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"clientNom\":\"A\",\"clientEmail\":\"a@x.com\",\"evenementId\":1,\"placeId\":12}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{loc}}/reservation",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservation"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation -H \"Content-Type: application/json\" -d '{\"clientNom\":\"A\",\"clientEmail\":\"a@x.com\",\"evenementId\":1,\"placeId\":12}'"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Réserver une place (Événement passé refusé)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"clientId\": 1, \"statutId\": 1, \"montantTotal\": 300, \"evenementId\": 1, \"lignes\": [{\"categorieId\": 1, \"quantite\": 1}]}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{loc}}/reservations",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation -H \"Content-Type: application/json\" -d '{\"clientNom\":\"A\",\"clientEmail\":\"a@x.com\",\"evenementId\":999,\"placeId\":1}'"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Confirmer le paiement (PROVISOIRE → PAYEE)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations/8549680/paiement",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations",
+                    "8549680",
+                    "paiement"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation/1/paiement"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Annuler une réservation (Avec remboursement)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservations/8549680/annulation",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservations",
+                    "8549680",
+                    "annulation"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation/1/annulation"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Libérer réservations expirées (Provisoires expirées)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/reservation/1/liberation",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "reservation",
+                    "1",
+                    "liberation"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST {{loc}}/reservation/1/liberation"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "niveau_4",
+          "item": [
+            {
+              "name": "[GET] Afficher les places libres (D'un événement)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenements/1/places-libres",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenements",
+                    "1",
+                    "places-libres"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/evenement/1/places-libres'"
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Calculer le taux de remplissage (D'un événement)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenements/1/remplissage",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenements",
+                    "1",
+                    "remplissage"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/evenement/1/remplissage'"
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Exporter les réservations CSV (Annulées exclues)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenements/1/reservations/export",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenements",
+                    "1",
+                    "reservations",
+                    "export"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/evenement/1/reservations/export'"
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Exporter les réservations CSV (Annulées incluses)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/evenement/1/reservations/export",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "evenement",
+                    "1",
+                    "reservations",
+                    "export"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/evenement/1/reservations/export?inclureAnnulees=true'"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "interventionTerrain",
+      "item": [
+        {
+          "name": "niveau_4",
+          "item": [
+            {
+              "name": "[GET] Trouver les techniciens disponibles (Compétents sur créneau)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/techniciens/disponibles?debut=2026-12-01T08:00:00&fin=2026-12-01T10:00:00&type=Installation%20Baie%20R%C3%A9seau",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "techniciens",
+                    "disponibles"
+                  ],
+                  "query": [
+                    {
+                      "key": "debut",
+                      "value": "2026-12-01T08:00:00"
+                    },
+                    {
+                      "key": "fin",
+                      "value": "2026-12-01T10:00:00"
+                    },
+                    {
+                      "key": "type",
+                      "value": "Installation Baie Réseau"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"http://localhost:8080/techniciens/disponibles?debut=2026-12-01T08:00:00&fin=2026-12-01T10:00:00&type=Installation\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Mesurer la charge d'une agence (Sur une période)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/agences/1/charge",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "agences",
+                    "1",
+                    "charge"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"http://localhost:8080/agences/1/charge?du=2026-11-01&au=2026-11-30\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Mesurer la charge d'une agence (Période par défaut)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/agences/1/charge",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "agences",
+                    "1",
+                    "charge"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"http://localhost:8080/agences/1/charge\""
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Calculer le taux de réussite d'une agence (Par mois)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/agences/1/taux-reussite?mois=2026-10",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "agences",
+                    "1",
+                    "taux-reussite"
+                  ],
+                  "query": [
+                    {
+                      "key": "mois",
+                      "value": "2026-10"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"http://localhost:8080/agences/1/taux-reussite?mois=2026-11\""
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "niveau_3",
+          "item": [
+            {
+              "name": "[POST] Associer une compétence à un technicien (Avec dates validité)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"id\": 5,\n    \"libelle\": \"S\\u00e9curit\\u00e9 Incendie & SSI\",\n    \"dateObtention\": \"2024-01-01\",\n    \"dateExpiration\": \"2028-01-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{loc}}/techniciens/1/competences",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "techniciens",
+                    "1",
+                    "competences"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/techniciens/1/competences\" -H \"Content-Type: application/json\" -d '{\"id\":5,\"dateObtention\":\"2024-01-01\",\"dateExpiration\":\"2028-01-01\"}'"
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] empeche chevauchement",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"datePlanifiee\": \"2026-11-09\",\n    \"typeInterventionId\": 1,\n    \"clientId\": 1,\n    \"technicienId\": 1,\n    \"creneauId\": 6,\n    \"reference\":\"234CD\",\n    \"commentaire\": \"Installation d un nouvel equipement\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/interventions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "interventions"
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/interventions/6/statut?nouveauStatut=EN_COURS\""
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Changer le statut d'une intervention (EN_COURS → TERMINEE)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{loc}}/interventions/5/statut?nouveauStatut=TERMINEE",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "interventions",
+                    "5",
+                    "statut"
+                  ],
+                  "query": [
+                    {
+                      "key": "nouveauStatut",
+                      "value": "TERMINEE"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/interventions/6/statut?nouveauStatut=TERMINEE\""
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Changer le statut d'une intervention (EN_COURS → ECHOUEE)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/interventions/8/statut?nouveauStatut=ECHOUEE",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "interventions",
+                    "8",
+                    "statut"
+                  ],
+                  "query": [
+                    {
+                      "key": "nouveauStatut",
+                      "value": "ECHOUEE"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/interventions/8/statut?nouveauStatut=ECHOUEE\""
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Changer le statut d'une intervention (PLANIFIEE → ANNULEE)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/interventions/4/statut?nouveauStatut=ANNULEE",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "interventions",
+                    "4",
+                    "statut"
+                  ],
+                  "query": [
+                    {
+                      "key": "nouveauStatut",
+                      "value": "ANNULEE"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/interventions/4/statut?nouveauStatut=ANNULEE\""
+              },
+              "response": []
+            },
+            {
+              "name": "[POST] Créer une intervention de reprise (Après échec)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{loc}}/interventions/16/reprise?datePlanifiee=2026-12-30",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "interventions",
+                    "16",
+                    "reprise"
+                  ],
+                  "query": [
+                    {
+                      "key": "datePlanifiee",
+                      "value": "2026-12-30"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X POST \"{{loc}}/interventions/8/reprise?datePlanifiee=2026-12-30T08:00:00\""
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "niveau_1",
+          "item": [
+            {
+              "name": "01_agences",
+              "item": [
+                {
+                  "name": "[POST] Créer une agence (Nouvelle agence valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"Agence ss\",\n    \"ville\": \"Abidjan\",\n    \"responsable\": \"Kouassi Jean\",\n    \"communeId\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/agences",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/agences -H \"Content-Type: application/json\" -d '{\"nom\":\"Agence Principale\",\"ville\":\"Abidjan\",\"responsable\":\"Kouassi Jean\",\"communeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les agences (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/agences?page=0&taille=8",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "taille",
+                          "value": "8"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/agences?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une agence (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/agences/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/agences/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une agence (Mise à jour responsable)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"Agence Principale (MAJ)\",\n    \"ville\": \"Abidjan\",\n    \"responsable\": \"respo\",\n    \"communeId\": 3\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/agences/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/agences/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Agence Principale (MAJ)\",\"ville\":\"Abidjan\",\"responsable\":\"Nouveau Responsable\",\"communeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une agence (Sans technicien)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/agences/5",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences",
+                        "5"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X DELETE {{loc}}/agences/3"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "02_techniciens",
+              "item": [
+                {
+                  "name": "[POST] Créer un technicien (Nouveau technicien valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"Kon\\u00e9\",\n    \"prenom\": \"Moussa\",\n    \"email\": \"kone.moussa@test.com\",\n    \"telephone\": \"0101010101\",\n    \"matricule\": \"TECH-099\",\n    \"equipeId\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/techniciens",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/techniciens -H \"Content-Type: application/json\" -d '{\"nom\":\"Koné\",\"prenom\":\"Moussa\",\"email\":\"kone.moussa@test.com\",\"telephone\":\"0101010101\",\"matricule\":\"TECH-001\",\"equipeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier un technicien (Mise à jour équipe)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"Traor\\u00e9\",\n    \"prenom\": \"Adama\",\n    \"email\": \"adama.traore@new.com\",\n    \"telephone\": \"0101010101\",\n    \"matricule\": \"TECH-001\",\n    \"equipeId\": 2\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/techniciens/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/techniciens/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Traoré\",\"prenom\":\"Adama\",\"email\":\"adama.traore@new.com\",\"telephone\":\"0101010101\",\"matricule\":\"TEC-001\",\"equipeId\":2}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les techniciens (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/techniciens?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister un techniciens",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/techniciens?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Sup un technicien",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens/7",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "7"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/techniciens?page=0&taille=10\""
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "03_competences",
+              "item": [
+                {
+                  "name": "[POST] Créer une compétence (Nouvelle compétence valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"libelle\": \"Soudure Industrielle\",\n    \"description\": \"Comp\\u00e9tence en soudure industrielle et tuyauterie\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/competences",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "competences"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/competences -H \"Content-Type: application/json\" -d '{\"nom\":\"Soudure\",\"description\":\"Compétence en soudure industrielle\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une compétence (Mise à jour description)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"libelle\": \"Soudure Avanc\\u00e9e\",\n    \"description\": \"Soudure TIG et MIG haute pr\\u00e9cision\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/competences/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "competences",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/competences/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Soudure Avancée\",\"description\":\"Soudure TIG et MIG\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les compétences (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/competences?page=0&taille=19",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "competences"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "taille",
+                          "value": "19"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/competences?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] lire une compétence",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/competences/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "competences",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/competences?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE]",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/competences/15",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "competences",
+                        "15"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/competences?page=0&taille=10\""
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "04_clients",
+              "item": [
+                {
+                  "name": "[POST] Créer un client (Nouveau client valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"assake\",\n    \"prenom\": \"Fatou\",\n    \"telephone\": \"0707070707\",\n     \"email\": null,\n    \"adresse\": \"15 Rue des Arts\",\n    \"commune\": \"Cocody\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/clients",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "clients"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/clients -H \"Content-Type: application/json\" -d '{\"nom\":\"Traoré\",\"prenom\":\"Fatou\",\"telephone\":\"0707070707\",\"adresse\":\"15 Rue des Arts\",\"commune\":\"Cocody\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les clients (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/clients",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "clients"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/clients?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister un client",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/clients/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "clients",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/clients?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier un client (Mise à jour email et adresse)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Traoré\",\"prenom\":\"Fatou\",\"email\":\"fatou.traore@email.com\",\"telephone\":\"0707070707\",\"adresse\":\"20 Rue des Arts, Cocody\",\"commune\":\"Cocody\"}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/clients/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "clients",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/clients/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Traoré\",\"prenom\":\"Fatou\",\"email\":\"fatou.traore@email.com\",\"telephone\":\"0707070707\",\"adresse\":\"20 Rue des Arts, Cocody\",\"commune\":\"Cocody\"}'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "05_interventions",
+              "item": [
+                {
+                  "name": "[POST] Créer une intervention (Planification valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"datePlanifiee\": \"2026-11-25\",\n    \"typeInterventionId\": 1,\n    \"clientId\": 1,\n    \"technicienId\": 1,\n    \"creneauId\": 6,\n    \"reference\": \"INT-VAL-001\",\n    \"commentaire\": \"Installation fibre\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/interventions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/interventions -H \"Content-Type: application/json\" -d '{\"datePlanifiee\":\"2026-11-07T13:00:00\",\"typeInterventionId\":1,\"clientId\":1,\"technicienId\":1,\"creneauId\":6,\"commentaire\":\"Installation d un nouvel equipement\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une intervention (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions/6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions",
+                        "6"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/interventions/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les interventions (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions?page=0&size=1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/interventions?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une intervention (Reprogrammation PLANIFIEE)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"datePlanifiee\": \"2026-11-26\",\n    \"typeInterventionId\": 3,\n    \"clientId\": 2,\n    \"technicienId\": 6,\n    \"creneauId\": 4,\n    \"reference\": \"INT-2026-006\",\n    \"commentaire\": \"Reprogramm\\u00e9\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/interventions/6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions",
+                        "6"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/interventions/6 -H \"Content-Type: application/json\" -d '{\"datePlanifiee\":\"2026-11-05T09:00:00\",\"typeInterventionId\":1,\"clientId\":1,\"technicienId\":1,\"creneauId\":4,\"commentaire\":\"Reprogrammé\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une intervention (Statut PLANIFIEE)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions/6",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions",
+                        "6"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X DELETE {{loc}}/interventions/6"
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "niveau_2",
+          "item": [
+            {
+              "name": "consultation_recherche",
+              "item": [
+                {
+                  "name": "[GET] Lister les techniciens d'une agence (Par agence ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/agences/1/techniciens?page=0&taille=2",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "agences",
+                        "1",
+                        "techniciens"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "taille",
+                          "value": "2"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/agences/1/techniciens'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter les compétences d'un technicien (Par technicien ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens/1/competences",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "1",
+                        "competences"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/techniciens/1/competences'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter l'historique d'un client (Interventions par client)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/clients/1/interventions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "clients",
+                        "1",
+                        "interventions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/clients/1/interventions'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Filtrer les interventions (Statut + Période)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions?statut=PLANIFIEE&du=2022-10-01&au=2024-12-31&page=0&taille=3",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ],
+                      "query": [
+                        {
+                          "key": "statut",
+                          "value": "PLANIFIEE"
+                        },
+                        {
+                          "key": "du",
+                          "value": "2022-10-01"
+                        },
+                        {
+                          "key": "au",
+                          "value": "2024-12-31"
+                        },
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "taille",
+                          "value": "3"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/interventions?statut=PLANIFIEE&du=2026-10-01&au=2026-12-31&page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Filtrer les interventions (Statut uniquement)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/interventions?statut=TERMINEE&page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Filtrer les interventions (Période uniquement)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/interventions?du=2026-11-01&au=2026-11-30&page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter toutes les interventions (Sans filtre)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/interventions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "interventions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/interventions?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter le planning d'un technicien (Sur une période)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens/1/planning?du=2026-10-01&au=2026-11-02",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "1",
+                        "planning"
+                      ],
+                      "query": [
+                        {
+                          "key": "du",
+                          "value": "2026-10-01"
+                        },
+                        {
+                          "key": "au",
+                          "value": "2026-11-02"
+                        }
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/techniciens/1/planning?du=2026-10-01&au=2026-10-31'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter le planning d'un technicien (Semaine en cours)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/techniciens/1/planning",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "techniciens",
+                        "1",
+                        "planning"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/techniciens/1/planning'"
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "suiviScolaire",
+      "item": [
+        {
+          "name": "niveau_4",
+          "item": [
+            {
+              "name": "[GET] Calculer les moyennes par matière (Par trimestre)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/eleves/1/moyennes",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "eleves",
+                    "1",
+                    "moyennes"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/eleves/1/moyennes?trimestre=1'"
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Calculer la moyenne générale (Par trimestre)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/eleves/1/moyenne-generale",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "eleves",
+                    "1",
+                    "moyenne-generale"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/eleves/1/moyenne-generale?trimestre=1'"
+              },
+              "response": []
+            },
+            {
+              "name": "[GET] Établir le classement d'une classe (Par trimestre)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{loc}}/classes/1/classement",
+                  "host": [
+                    "{{loc}}"
+                  ],
+                  "path": [
+                    "classes",
+                    "1",
+                    "classement"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET '{{loc}}/classes/1/classement?trimestre=1'"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "niveau_1",
+          "item": [
+            {
+              "name": "01_classes",
+              "item": [
+                {
+                  "name": "[GET] Lister les classes (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/classes",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/classes?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une classe (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/classes/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/classes/1'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Rechercher une classe (Par nom)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/classes/recherche",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes",
+                        "recherche"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/classes/recherche?nom=6%C3%A8me%20Z'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer une classe (Nouvelle classe valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"6éme D\",\n    \"niveau\": \"6ème\",\n    \"effectifMax\": 30\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/classes",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request POST '{{loc}}/classes' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"TEST\",\"niveau\":\"6ème\",\"effectifMax\":30}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une classe (Mise à jour nom)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"TEST MAJ\",\"niveau\":\"6ème\",\"effectifMax\":30}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/classes/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request PUT '{{loc}}/classes/1' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"TEST MAJ\",\"niveau\":\"6ème\",\"effectifMax\":30}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une classe (Suppression par ID)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/classes/41",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "classes",
+                        "41"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request DELETE '{{loc}}/classes/1'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "02_eleves",
+              "item": [
+                {
+                  "name": "[GET] Lister les élèves (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/eleves/349",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "eleves",
+                        "349"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/eleves?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter un élève (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/eleves/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "eleves",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/eleves/1'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Créer un élève (Avec classe associée)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"Diallo\",\n    \"prenom\": \"Aminata\",\n    \"estSigle\": false,\n    \"classeId\": 1,\n    \"dateNaissance\": \"2013-01-15\",\n    \"matricule\": \"ELV-2026x-001\"\n\n\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/eleves",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "eleves"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request POST '{{loc}}/eleves' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"Diallo\",\"prenom\":\"Aminata\",\"estSigle\":false,\"classeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier un élève (Mise à jour nom et prénom)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Diallo\",\"prenom\":\"Aminata MAJ\",\"estSigle\":false,\"classeId\":1}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/eleves/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "eleves",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request PUT '{{loc}}/eleves/1' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"Diallo\",\"prenom\":\"Aminata MAJ\",\"estSigle\":false,\"classeId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer un élève (Suppression par ID)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/eleves/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "eleves",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request DELETE '{{loc}}/eleves/1'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "03_matieres",
+              "item": [
+                {
+                  "name": "[POST] Créer une matière (Nouvelle matière valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"F3_MAT\",\n    \"libelle\": \"chimdies\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/matieres",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "matieres"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request POST '{{loc}}/matieres' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"F3_MAT\",\"coefficient\":2}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une matière (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/matieres/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "matieres",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/matieres/1'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les matières (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/matieres",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "matieres"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/matieres?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une matière (Mise à jour coefficient)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nom\": \"F3_MAT\",\n    \"libelle\" : \"ok\",\n    \"coefficient\": 3\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/matieres/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "matieres",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request PUT '{{loc}}/matieres/1' --header 'Content-Type: application/json' --data-raw '{\"nom\":\"F3_MAT\",\"coefficient\":3}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[DELETE] Supprimer une matière (Suppression par ID)",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/matieres/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "matieres",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location --request DELETE '{{loc}}/matieres/1'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "04_professeurs",
+              "item": [
+                {
+                  "name": "[GET] Lister les professeurs (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/professeurs",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "professeurs"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/professeurs?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter un professeur (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/professeurs/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "professeurs",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/professeurs/1'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "C",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"matricule\": \"PRF-2026-010\",\n    \"nom\": \"Coulibaly\",\n    \"prenom\": \"Moussa\",\n    \"email\": \"moussa.coulibaly@exemple.com\",\n    \"telephone\": \"+2250708091011\",\n    \"specialite\": \"Mathématiques\"\n  }",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/professeurs",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "professeurs"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "New Request",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"matricule\": \"PRF-2026-010\",\n    \"nom\": \"Coulibaly\",\n    \"prenom\": \"Moussa Amadou\",\n    \"email\": \"moussa.coulibaly@exemple.com\",\n    \"telephone\": \"+2250708091099\",\n    \"specialite\": \"Mathématiques / Informatique\"\n  }",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/professeurs/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "professeurs",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "05_notes",
+              "item": [
+                {
+                  "name": "[GET] Lister les notes (Liste complète)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/notes",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "notes"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/notes?page=0&taille=10'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une note (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/notes/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "notes",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl --location '{{loc}}/notes/1'"
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "niveau_2",
+          "item": [
+            {
+              "name": "06_inscriptions",
+              "item": [
+                {
+                  "name": "[POST] Créer une inscription (Élève dans une classe)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"eleveId\":1,\"classeId\":1,\"anneeScolaireId\":1}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/inscriptions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "inscriptions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/inscriptions -H \"Content-Type: application/json\" -d '{\"eleveId\":1,\"classeId\":1,\"anneeScolaireId\":1}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les inscriptions (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/inscriptions",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "inscriptions"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/inscriptions?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une inscription (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/inscriptions/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "inscriptions",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/inscriptions/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une inscription (Mise à jour année scolaire)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"eleveId\":1,\"classeId\":1,\"anneeScolaireId\":1}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/inscriptions/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "inscriptions",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/inscriptions/1 -H \"Content-Type: application/json\" -d '{\"eleveId\":1,\"classeId\":1,\"anneeScolaireId\":1}'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "07_enseignements",
+              "item": [
+                {
+                  "name": "[POST] Créer un enseignement (Matière + Professeur)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"matiereId\":1,\"professeurId\":1,\"coefficient\":3}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/enseignements",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "enseignements"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/enseignements -H \"Content-Type: application/json\" -d '{\"matiereId\":1,\"professeurId\":1,\"coefficient\":3}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les enseignements (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/enseignements",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "enseignements"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/enseignements?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter un enseignement (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/enseignements/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "enseignements",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/enseignements/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier un enseignement (Mise à jour coefficient)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"matiereId\":1,\"professeurId\":1,\"coefficient\":4}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/enseignements/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "enseignements",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/enseignements/1 -H \"Content-Type: application/json\" -d '{\"matiereId\":1,\"professeurId\":1,\"coefficient\":4}'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "08_types_evaluation",
+              "item": [
+                {
+                  "name": "[POST] Créer un type d'évaluation (Contrôle Continu)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\":\"CC\",\"libelle\":\"Contrôle Continu\",\"description\":\"Évaluation continue sur le trimestre\"}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/types-evaluation",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "types-evaluation"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/types-evaluation -H \"Content-Type: application/json\" -d '{\"code\":\"CC\",\"libelle\":\"Contrôle Continu\",\"description\":\"Évaluation continue sur le trimestre\"}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les types d'évaluation (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/types-evaluation",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "types-evaluation"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/types-evaluation?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter un type d'évaluation (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/types-evaluation/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "types-evaluation",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/types-evaluation/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier un type d'évaluation (Mise à jour libellé)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\":\"CC\",\"libelle\":\"Contrôle Continu modifié\",\"description\":\"Évaluation continue mise à jour\"}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/types-evaluation/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "types-evaluation",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/types-evaluation/1 -H \"Content-Type: application/json\" -d '{\"code\":\"CC\",\"libelle\":\"Contrôle Continu modifié\",\"description\":\"Évaluation continue mise à jour\"}'"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "09_periodes",
+              "item": [
+                {
+                  "name": "[POST] Créer une période (Trimestre 1)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Trimestre 1\",\"numero\":1,\"dateDebut\":\"2024-10-01\",\"dateFin\":\"2024-12-31\",\"estCloture\":false}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/periodes",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "periodes"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/periodes -H \"Content-Type: application/json\" -d '{\"nom\":\"Trimestre 1\",\"numero\":1,\"dateDebut\":\"2024-10-01\",\"dateFin\":\"2024-12-31\",\"estCloture\":false}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les périodes (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/periodes",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "periodes"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/periodes?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une période (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/periodes/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "periodes",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/periodes/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une période (Mise à jour nom)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"nom\":\"Trimestre 1 modifié\",\"numero\":1,\"dateDebut\":\"2024-10-01\",\"dateFin\":\"2024-12-31\",\"estCloture\":false}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/periodes/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "periodes",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/periodes/1 -H \"Content-Type: application/json\" -d '{\"nom\":\"Trimestre 1 modifié\",\"numero\":1,\"dateDebut\":\"2024-10-01\",\"dateFin\":\"2024-12-31\",\"estCloture\":false}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[POST] Clôturer une période (Fermeture trimestre)",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/periodes/1/cloture",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "periodes",
+                        "1",
+                        "cloture"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/periodes/1/cloture"
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "10_annees_scolaires",
+              "item": [
+                {
+                  "name": "[POST] Créer une année scolaire (Nouvelle année valide)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"annee\":\"2024-2025\",\"dateDebut\":\"2024-09-01\",\"dateFin\":\"2025-06-30\",\"estEnCours\":true}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/annees-scolaires",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "annees-scolaires"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X POST {{loc}}/annees-scolaires -H \"Content-Type: application/json\" -d '{\"annee\":\"2024-2025\",\"dateDebut\":\"2024-09-01\",\"dateFin\":\"2025-06-30\",\"estEnCours\":true}'"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Lister les années scolaires (Pagination page 0)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/annees-scolaires",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "annees-scolaires"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET \"{{loc}}/annees-scolaires?page=0&taille=10\""
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[GET] Consulter une année scolaire (Par ID)",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{loc}}/annees-scolaires/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "annees-scolaires",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X GET {{loc}}/annees-scolaires/1"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "[PUT] Modifier une année scolaire (Mise à jour statut)",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"annee\":\"2025-2026\",\"dateDebut\":\"2025-09-01\",\"dateFin\":\"2026-06-30\",\"estEnCours\":false}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{loc}}/annees-scolaires/1",
+                      "host": [
+                        "{{loc}}"
+                      ],
+                      "path": [
+                        "annees-scolaires",
+                        "1"
+                      ]
+                    },
+                    "description": "Generated from cURL: curl -X PUT {{loc}}/annees-scolaires/1 -H \"Content-Type: application/json\" -d '{\"annee\":\"2025-2026\",\"dateDebut\":\"2025-09-01\",\"dateFin\":\"2026-06-30\",\"estEnCours\":false}'"
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "niveau_3",
+          "item": []
+        }
+      ]
+    }
+  ]
+}

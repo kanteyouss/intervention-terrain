@@ -36,6 +36,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -114,7 +115,6 @@ public class TechnicienService extends AbstractCrudService {
                 .build();
     }
 
-    @Override
     public Page<ResponseDto> getAll(int page, int taille) {
         Sort sort = Sort.by(Sort.Order.asc("nom"));
         Pageable pageable = PageRequest.of(pageAutorisee(page), tailleAutorisee(taille), sort);
@@ -161,13 +161,14 @@ public class TechnicienService extends AbstractCrudService {
         return toDto(technicienRepository.save(technicien));
     }
 
-    @Override
+    @Transactional
     public ResponseDto delete(Long id) throws Throwable {
         Technicien technicien = technicienRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(messageIntrouvable()));
         if (technicienRepository.existsInterventionByTechnicienId(id)) {
             throw new RessourceUtiliseeException("Technicien", id, "Intervention");
         }
+        technicienCompetenceRepository.deleteByTechnicienId(id);
         ResponseDto response = toDto(technicien);
         technicienRepository.deleteById(id);
         return response;
@@ -188,6 +189,7 @@ public class TechnicienService extends AbstractCrudService {
                 .map(link -> TechnicienCompetenceResponseDto.builder()
                         .id(link.getCompetence().getId())
                         .nom(link.getCompetence().getLibelle())
+                        .libelle(link.getCompetence().getLibelle())
                         .description(link.getCompetence().getDescription())
                         .dateObtention(link.getDateObtention())
                         .dateExpiration(link.getDateExpiration())
@@ -233,6 +235,7 @@ public class TechnicienService extends AbstractCrudService {
         return TechnicienCompetenceResponseDto.builder()
                 .id(saved.getCompetence().getId())
                 .nom(saved.getCompetence().getLibelle())
+                .libelle(saved.getCompetence().getLibelle())
                 .description(saved.getCompetence().getDescription())
                 .dateObtention(saved.getDateObtention())
                 .dateExpiration(saved.getDateExpiration())
@@ -257,6 +260,7 @@ public class TechnicienService extends AbstractCrudService {
 
     public DisponiblesResponseDto getDisponibles(LocalDateTime debut, LocalDateTime fin, String typeNom) {
         TypeIntervention type = typeInterventionRepository.findByNomIgnoreCase(typeNom)
+                .or(() -> typeInterventionRepository.findFirstByNomContainingIgnoreCase(typeNom))
                 .orElseThrow(() -> new NotFoundException("Type d'intervention non trouvé : " + typeNom));
 
         List<Long> competencesRequises = typeInterventionRepository
@@ -334,7 +338,6 @@ public class TechnicienService extends AbstractCrudService {
         return true;
     }
 
-    @Override
     protected String messageIntrouvable() {
         return "Technicien non trouvé";
     }
